@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Tahoma, Verdana, sans-serif;
+            background-color: #e2d2c8;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        h1 {
+            color: #8e7692;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        p {
+            text-align: center;
+            font-size: 1.3em;
+            margin-bottom: 30px;
+            color: #572e54;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        button {
+            background-color: #572e54;
+            color: #e2d2c8;
+            border: none;
+            border-radius: 8px;
+            padding: 15px 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            background-color: #ceb2bd;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+<h1 th:text="${title}">Welcome</h1>
+<p th:text="|Welcome to the ${title}!|" />
+
+<div class="button-container">
+    <button th:onclick="|window.location.href='/create-entry'|">Create a new entry in the table</button>
+    <button th:onclick="|window.location.href='/select-table'|">Read from the selected table</button>
+    <button onclick="window.location.href='/delete-by-key'">Delete the record using the primary key</button>
+    <button onclick="window.location.href='/edit-table'">Edit table</button>
+
+</div>
+</body>
+</html>
