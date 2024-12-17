@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Create New Olimpiada</title>
+    <title>Login</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <style>
         body {
@@ -15,7 +15,7 @@
             flex-direction: column;
         }
 
-        h1 {
+        h2 {
             color: #8e7692;
             text-align: center;
             font-size: 2.5em;
@@ -24,19 +24,29 @@
         }
 
         form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
         }
 
-        input, select {
-            margin: 10px 0;
+        label {
+            font-size: 1.1em;
+            color: #572e54;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
             padding: 10px;
-            border: 1px solid #572e54;
-            border-radius: 5px;
-            width: 300px;
-            font-size: 1em;
-            box-sizing: border-box; /* Убедимся, что размеры поля учитывают padding */
+            font-size: 1.1em;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            box-sizing: border-box;
         }
 
         button {
@@ -48,22 +58,27 @@
             font-size: 1.1em;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.2s;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
         }
 
         button:hover {
             background-color: #ceb2bd;
             transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
         }
 
         button:active {
             transform: translateY(0);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .error-message {
+            color: red;
+            text-align: center;
+            font-size: 1.1em;
+            margin-top: 20px;
         }
 
         .back-link {
-            margin-top: 20px;
+            margin-top: 30px;
             font-size: 1.2em;
             color: #572e54;
             text-decoration: none;
@@ -76,23 +91,26 @@
     </style>
 </head>
 <body>
-<h1>Create New Olimpiada Entry</h1>
-<form th:action="@{/olimpiada-create}" method="post">
+<h2>Login</h2>
 
-    <input type="number" name="olimpiada_year" placeholder="Enter Year" required
-           pattern="\d{4}"  />
+<!-- Error message -->
+<p class="error-message" th:text="${error}"></p>
 
-    <input type="text" name="olimpiada_city" placeholder="Enter City" required />
-    <select name="olimpiada_view" required>
-        <option value="" disabled selected>Choose View</option>
-        <option value="Winter">Winter</option>
-        <option value="Summer">Summer</option>
-    </select>
-    <button type="submit">Submit</button>
+<form action="/login" method="POST">
+    <input type="hidden" name="_csrf" value="${_csrf.token}" />
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required><br><br>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br><br>
+
+    <button type="submit">Login</button>
+
+    <div th:if="${resultMessage}" style="color: red;">
+        <p th:text="${resultMessage}"></p>
+    </div>
 </form>
 
 <a class="back-link" href="/">Back to Home</a>
-
-<div th:if="${message}" th:text="${message}" style="color: green; margin-top: 20px;"></div>
 </body>
 </html>

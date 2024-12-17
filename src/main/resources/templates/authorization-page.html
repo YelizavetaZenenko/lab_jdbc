@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+    <title>Authorization Page</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+            background-color: #e2d2c8;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        h1 {
+            color: #8e7692;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .button-container {
+            margin: 10px 0;
+        }
+
+        button {
+            background-color: #572e54;
+            color: #e2d2c8;
+            border: none;
+            border-radius: 8px;
+            padding: 20px 40px; /* Увеличены отступы для большего размера */
+            font-size: 1.2em; /* Увеличен размер текста */
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #ceb2bd;
+        }
+    </style>
+</head>
+<body>
+<h1 th:text="${title}">Databases</h1>
+<div class="button-container">
+    <button onclick="window.location.href='/create-account-user'">Create Account as User</button>
+    <button onclick="window.location.href='/login-page'">Login with account</button>
+</div>
+</body>
+</html>

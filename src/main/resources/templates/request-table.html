@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Create New Olimpiada</title>
+    <title>Write SQL request</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <style>
         body {
@@ -23,20 +23,12 @@
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
         }
 
-        form {
+        .button-container {
             display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        input, select {
-            margin: 10px 0;
-            padding: 10px;
-            border: 1px solid #572e54;
-            border-radius: 5px;
-            width: 300px;
-            font-size: 1em;
-            box-sizing: border-box; /* Убедимся, что размеры поля учитывают padding */
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
         }
 
         button {
@@ -63,7 +55,7 @@
         }
 
         .back-link {
-            margin-top: 20px;
+            margin-top: 30px;
             font-size: 1.2em;
             color: #572e54;
             text-decoration: none;
@@ -73,26 +65,58 @@
         .back-link:hover {
             color: #8e7692;
         }
+
+        .sql-form {
+            width: 80%;
+            max-width: 600px;
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .sql-input {
+            width: 100%;
+            height: 150px;
+            font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+            font-size: 1.1em;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid #8e7692;
+            box-sizing: border-box;
+            resize: vertical;
+        }
+
+        .sql-submit {
+            background-color: #572e54;
+            color: #e2d2c8;
+            border: none;
+            padding: 12px 20px;
+            font-size: 1.2em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .sql-submit:hover {
+            background-color: #ceb2bd;
+        }
     </style>
 </head>
 <body>
-<h1>Create New Olimpiada Entry</h1>
-<form th:action="@{/olimpiada-create}" method="post">
 
-    <input type="number" name="olimpiada_year" placeholder="Enter Year" required
-           pattern="\d{4}"  />
+<h1>Write Your SQL Request</h1>
 
-    <input type="text" name="olimpiada_city" placeholder="Enter City" required />
-    <select name="olimpiada_view" required>
-        <option value="" disabled selected>Choose View</option>
-        <option value="Winter">Winter</option>
-        <option value="Summer">Summer</option>
-    </select>
-    <button type="submit">Submit</button>
+<!-- Form to input SQL request -->
+<form action="/execute-sql" method="post" class="sql-form">
+    <textarea name="sqlQuery" class="sql-input" placeholder="Enter your SQL query here"></textarea><br>
+
+    <!-- CSRF token -->
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+
+    <button type="submit" class="sql-submit">Submit SQL Query</button>
 </form>
 
 <a class="back-link" href="/">Back to Home</a>
 
-<div th:if="${message}" th:text="${message}" style="color: green; margin-top: 20px;"></div>
 </body>
 </html>

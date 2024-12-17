@@ -2,32 +2,24 @@ package com.example.demo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import lombok.extern.slf4j.Slf4j;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-
+@Slf4j
 @SpringBootApplication
 public class PppApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(PppApplication.class, args);
+		log.info("Application is starting...");
 
-		String url = "jdbc:postgresql://localhost:5432/laba3";
-		String username = "postgres";
-		String password = "lizaliza123";
-
-		try (Connection connection = DriverManager.getConnection(url, username, password)) {
-			System.out.println("Connection to database successful!");
-
-			UserDAO userDAO = new UserDAO(connection);
-
-			userDAO.listOlimpiada();
-			userDAO.listSport();
-			userDAO.listSportsman();
-
-		} catch (SQLException e) {
-			System.err.println("Database connection error: " + e.getMessage());
+		try {
+			SpringApplication.run(PppApplication.class, args);
+			log.info("Application has started successfully.");
+		} catch (Exception e) {
+			if (e.getClass().getName().contains("SilentExitException")) {
+				log.debug("Spring is restarting the main thread - See spring-boot-devtools");
+			} else {
+				log.error("Application crashed!", e);
+			}
 		}
 	}
 }
